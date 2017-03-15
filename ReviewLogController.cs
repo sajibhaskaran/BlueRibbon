@@ -144,6 +144,7 @@ namespace Blue_Ribbon.Controllers
             }
             if (ModelState.IsValid)
             {
+
                 db.ReviewLog.Add(reviewLog);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -171,14 +172,20 @@ namespace Blue_Ribbon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ReviewLog reviewLog)
+        public ActionResult Edit([Bind(Include = "ReviewLogId,ASIN,WebsiteAPIId,CustomerReviewed,AutomaticValidation,AdminReviewed,DisplayReview,Rating,Email,ReviewSubject,ReviewBody,WouldBuyAgain,RecToFriend")] ReviewLog reviewLog)
         {
             if (ModelState.IsValid)
             {
-                
+                //Created new value for DateReviewed so every time user reviews
+                //DateReviewed is updated to the days date while Selected date is not updated
+                reviewLog.DateReviewed = DateTime.Now.Date;
                 db.Entry(reviewLog).State = EntityState.Modified;
+                db.Entry(reviewLog).Property("SelectedDate").IsModified = false;
+               
+
+              
+
                 db.SaveChanges();
-                                
                 return RedirectToAction("Index");
             }
             return View(reviewLog);
