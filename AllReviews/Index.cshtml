@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Blue_Ribbon.Models.ReviewLog>
+
+<dl>
+    @foreach (var item in Model.Take(3))
+    {
+        <dt>
+            <bold>@Html.DisplayFor(modelItem => item.ReviewSubject)</bold>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(modelItem => item.ReviewBody)
+        </dd>
+    }
+
+</dl>
+
+
+    
+   
+
