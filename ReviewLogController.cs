@@ -98,6 +98,7 @@ namespace Blue_Ribbon.Controllers
             Review.Rating = rRating;
             Review.ASIN = "B01BGVLGFE";
             Review.CustomerReviewed = true;
+            Review.DisplayReview = true;
             Review.Email = "tyler.corum@gmail.com";
             Deal Deal = db.Deal.Where(db => db.ASIN == Review.ASIN).First();
             Review.WebsiteAPIId = Deal.WebsiteAPIDataId;

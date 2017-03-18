@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Blue_Ribbon.Models.ReviewLog>
+
+
+<!-- Going through the reviews and take the first three and display it in the product details model-->
+
+
+
+
+
+
+@if (Model.Count() != 0)
+{
+    foreach (var item in Model.Take(3))
+    {
+        <p>
+            <bold>@item.ReviewSubject</bold>
+
+        </p>
+
+        <p class="review-text">
+
+            @item.ReviewBody
+        </p>
+    }
+
+
+
+    @Html.ActionLink("More Reviews", "Index", "AllReviews", new { id = Model.First().ASIN },
+    new { target = "_blank", @style = "color:#125093; text-decoration:none;" });
+
+
+}
+else
+{
+    <p class="review-text">
+        No Reviews yet for this product!
+    </p>
+}
+
+
+
