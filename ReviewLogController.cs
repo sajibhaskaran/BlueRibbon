@@ -26,7 +26,7 @@ namespace Blue_Ribbon.Controllers
 
             List<ReviewLogViewModel> LogsViewModel = new List<ReviewLogViewModel>();
 
-            for (var i = 0; i < Logs.Count; i++)
+            for (var i = 0; i < Logs.Count-1; i++)
             {
                 var vm = new ReviewLogViewModel(Deals.Where(a => a.ASIN == Logs[i].ASIN).FirstOrDefault(), Logs[i]);
                 LogsViewModel.Add(vm);
@@ -75,42 +75,44 @@ namespace Blue_Ribbon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "Rating")]ReviewLog Review)
+        public ActionResult Create([Bind(Include = "ReviewLogId,ASIN,WebsiteAPIId,SelectedDate,CustomerReviewed,AutomaticValidation,NeedsAdminReview,AdminReviewed,DisplayReview,Rating,DateReviewed,Email,ReviewSubject,ReviewBody,WouldBuyAgain,RecToFriend")]ReviewLog Review)
         {
-            Random random = new Random();
-            int rDate = random.Next(3, 30);
-            rDate = (rDate * -1);
-            bool[] bools = new bool[2];
+            //Random random = new Random();
+            //int rDate = random.Next(3, 30);
+            //rDate = (rDate * -1);
+            //bool[] bools = new bool[2];
 
-            //create random bools for would buy again and refer to friend
-            for (int i = 0; i < 2; i++)
-            {
-                bools[i] = new Random().Next(100) % 2 == 0;
-            }
+            ////create random bools for would buy again and refer to friend
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    bools[i] = new Random().Next(100) % 2 == 0;
+            //}
 
-            int rRating = random.Next(1, 6);
-            if (Review.DateReviewed == null)
-            {
-                Review.DateReviewed = DateTime.Now.Date;
-                Review.SelectedDate = DateTime.Now.Date.AddDays(rDate); //emulate a click to get a deal 3 days ago
-            }
+            //int rRating = random.Next(1, 6);
+            //if (Review.DateReviewed == null)
+            //{
+            //    Review.DateReviewed = DateTime.Now.Date;
+            //    Review.SelectedDate = DateTime.Now.Date.AddDays(rDate); //emulate a click to get a deal 3 days ago
+            //}
 
-            Review.Rating = rRating;
-            Review.ASIN = "B01BGVLGFE";
-            Review.CustomerReviewed = true;
-            Review.DisplayReview = true;
-            Review.Email = "tyler.corum@gmail.com";
-            Deal Deal = db.Deal.Where(db => db.ASIN == Review.ASIN).First();
-            Review.WebsiteAPIId = Deal.WebsiteAPIDataId;
-            Review.WouldBuyAgain = bools[0];
-            Review.RecToFriend = bools[1];
-            //TODO implement error handing
-            if (ModelState.IsValid)
-            {
-                db.ReviewLog.Add(Review);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            //Review.Rating = rRating;
+            //Review.ASIN = "B01BGVLGFE";
+            //Review.CustomerReviewed = true;
+            //Review.DisplayReview = true;
+            //Review.Email = "tyler.corum@gmail.com";
+            //Deal Deal = db.Deal.Where(db => db.ASIN == Review.ASIN).First();
+            //Review.WebsiteAPIId = Deal.WebsiteAPIDataId;
+            //Review.WouldBuyAgain = bools[0];
+            //Review.RecToFriend = bools[1];
+            ////TODO implement error handing
+            //if (ModelState.IsValid)
+            //{
+            //    db.ReviewLog.Add(Review);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+
+
             return View(Review);
         }
 

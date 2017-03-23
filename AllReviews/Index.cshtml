@@ -1,27 +1,99 @@
-﻿@model IEnumerable<Blue_Ribbon.Models.ReviewLog>
+﻿@model IEnumerable<Blue_Ribbon.ViewModels.ReviewLogViewModel>
 
 @{
 }
 
-<h2>All Reviews</h2>
-
-@*Going through the model and listing the reviews associated with this product *@
 
 
-@foreach (var item in Model)
-{
-    <p>
-        <bold>@Html.DisplayFor(modelItem => item.ReviewSubject)</bold>
-    </p>
 
-    <p class="review-text">
+@{var avRating = Model.Select(p => p.Rating).Average(); }
 
-        @Html.DisplayFor(modelItem => item.ReviewBody)
-    </p>
-}
-@if (Model.Count() == 0)
-{
-    <p>
-        No Reviews yet for this product!
-    </p>
-}
+<div class="row container-fluid">
+
+    <h2 class="text-center">@Model.First().ProductName</h2>
+    <p>&nbsp;</p>
+    <div class="col-md-4 col-sm-12 ">
+
+        <img class="modal-img" src=@Model.First().ImageUrl />
+
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <p>
+            <h1 class="specialprice">
+                Retail Price
+                
+                @Model.First().RetailPrice.ToString("C")
+                @for (int i = 0; i < (int)@avRating; i++)
+                {
+                    <i class="fa fa-star rating-star" aria-hidden="true"></i>
+                    
+                } 
+                @if (avRating % 1 != 0)
+                {
+                    <i class="fa fa-star-half-o rating-star" aria-hidden="true"></i>
+                  
+                    avRating = avRating + 1;
+                }
+
+                @for (int i = (int)avRating; i < 5; i++)
+                {
+                    <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
+                } 
+                
+                
+            </h1>
+            <hr />
+
+            <h1 class="specialprice">Description</h1>
+        </p>
+        @Model.First().Description
+
+        <hr style="clear:both" />
+        <br />
+
+
+
+
+
+
+        <h1 class="specialprice">Customer Reviews</h1>
+
+        @*Going through the model and listing the reviews associated with this product *@
+
+
+        @foreach (var item in Model)
+        {
+            <h2>
+                @{int x = (int)item.Rating;}
+                 
+                @for (int i = 0; i < x; i++)
+                {
+                    <i class="fa fa-star rating-star" aria-hidden="true"></i>
+                }
+                @for (int i = x; i < 5; i++)
+                {
+                    <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
+                } 
+                &nbsp;
+                <bold>@item.ReviewSubject</bold>              
+                
+               
+
+            </h2>
+
+            <p class="review-text">
+
+                @item.ReviewBody
+            </p>
+            <p>&nbsp;</p>
+            <hr />
+        }
+        @if (Model.Count() == 0)
+        {
+            <p>
+                No Reviews yet for this product!
+            </p>
+        }
+
+    </div>
+</div>

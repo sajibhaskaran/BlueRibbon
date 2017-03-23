@@ -1,18 +1,27 @@
 ﻿@model IEnumerable<Blue_Ribbon.Models.ReviewLog>
 
 
-<!-- Going through the reviews and take the first three and display it in the product details model-->
 
 
-
-
-
+@*If the Model count is not 0, listing the fist 3 reviews then a link for viewing all the reviews*@
 
 @if (Model.Count() != 0)
 {
     foreach (var item in Model.Take(3))
     {
         <p>
+            @{int x = (int)item.Rating;}
+
+            @for (int i = 0; i < x; i++)
+            {
+                <i class="fa fa-star rating-star" aria-hidden="true"></i>
+            }
+            @for (int i = x; i < 5; i++)
+            {
+                <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
+            }
+             &nbsp;
+            
             <bold>@item.ReviewSubject</bold>
 
         </p>
@@ -22,20 +31,19 @@
             @item.ReviewBody
         </p>
     }
+    <button class="btn btn-primary" style="align-content:center; white-space:normal;">
+        @Html.ActionLink("More Reviews ", "Index", "AllReviews", new { id = Model.First().ASIN },
+                    new { target = "_blank", @style = "color:white; text-decoration:none;" })
+        <span class="glyphicon glyphicon-new-window"></span>
+        </button>
 
-
-
-    @Html.ActionLink("More Reviews", "Index", "AllReviews", new { id = Model.First().ASIN },
-    new { target = "_blank", @style = "color:#125093; text-decoration:none;" });
-
-
-}
-else
-{
-    <p class="review-text">
-        No Reviews yet for this product!
-    </p>
-}
+        }
+        else
+        {
+        <p class="review-text">
+            No Reviews yet for this product!
+        </p>
+        }
 
 
 
