@@ -1,0 +1,120 @@
+﻿@model Blue_Ribbon.Models.ReviewLog
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ReviewLog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ASIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ASIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebsiteAPIId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebsiteAPIId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerReviewed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerReviewed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AutomaticValidation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AutomaticValidation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminReviewed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminReviewed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayReview)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayReview)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewSubject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewSubject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewBody)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewBody)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WouldBuyAgain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WouldBuyAgain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecToFriend)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecToFriend)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Blue_Ribbon.ViewModels.ReviewLogViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<!-- Displaying Reviews using the bootstrap table-->
+<table class="table">
+    <tr>
+        <!-- Displaying the headers -->
+        <th>
+            @Html.DisplayNameFor(model => model.ASIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerReviewed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AutomaticValidation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminReviewed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayReview)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReviewSubject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReviewBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WouldBuyAgain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecToFriend)
+        </th>
+        <th></th>
+    </tr>
+
+    <!-- Displaying the reviews by using foreach to go through each rows -->
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <!-- Displaying the ASIN code of the item -->
+            @Html.DisplayFor(modelItem => item.ASIN)
+        </td>
+        <td>
+            <!-- Displaying whether or not the customer reviewed -->
+            @Html.DisplayFor(modelItem => item.CustomerReviewed)
+        </td>
+        <td>
+            <!-- Displaying if the automatic validation set-->
+            @Html.DisplayFor(modelItem => item.AutomaticValidation)
+        </td>
+        <td>
+            <!-- Displaying whether or not the Admin review the customer review -->
+            @Html.DisplayFor(modelItem => item.AdminReviewed)
+        </td>
+        <td>
+            <!-- Checkbox to set the review for displaying -->
+            @Html.DisplayFor(modelItem => item.DisplayReview)
+        </td>
+        <td>
+            <!-- Displaying the rating given -->
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td><!-- Displaying the customer email address -->
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            <!-- Displaying subject of the customer review -->
+            @Html.DisplayFor(modelItem => item.ReviewSubject)
+        </td>
+        <td>
+            <!-- Displaying the body of the review-->
+            @Html.DisplayFor(modelItem => item.ReviewBody)
+        </td>
+        <td>
+            <!-- Displaying whether or not the customer would buy the product again -->
+            @Html.DisplayFor(modelItem => item.WouldBuyAgain)
+        </td>
+        <td>
+            <!-- Displaying whether or not the customer would reccomend the product to a friend -->
+            @Html.DisplayFor(modelItem => item.RecToFriend)
+        </td>
+        <td>
+            <!-- Links to Edit, Details, Delete pages -->
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReviewLogId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReviewLogId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReviewLogId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,175 @@
+﻿@model Blue_Ribbon.ViewModels.ReviewLogViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReviewLog</h4>
+    <div class="col-sm-4, col-md-2">
+        <!-- Displaying Product Image -->
+        <img src="@Model.ImageUrl" id="detailpage" />
+    </div>
+    <hr />
+    
+
+    <dl class="dl-horizontal">
+        <!-- Displaying the Review Details -->
+        
+        <p>
+            <!-- Links to Edit and Details Pages -->  
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ReviewLogId }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+        <dt>
+            @Html.DisplayNameFor(model => model.ASIN)
+        </dt>
+        <dd>
+            <!-- Displaying the ASIN -->
+            @Html.DisplayFor(model => model.ASIN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+        <dd>
+            <!-- Displaying the Product Name -->
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WebsiteAPIId)
+        </dt>
+        <dd>
+            <!-- Displaying the API Id -->
+            @Html.DisplayFor(model => model.WebsiteAPIId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerReviewed)
+        </dt>
+        <dd>
+            <!-- Whether or not if the customer reviewed -->
+            @Html.DisplayFor(model => model.CustomerReviewed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd>
+            <!-- Displaying the Product Category Name -->
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OriginalPrice)
+        </dt>
+        <dd>
+            <!-- Displaying the Original Price before the discount -->
+            @Html.DisplayFor(model => model.OriginalPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RetailPrice)
+        </dt>
+        <dd>
+            <!-- Displaying the Retail Price -->
+            @Html.DisplayFor(model => model.RetailPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CalculatedDiscount)
+        </dt>
+        <dd>
+            <!-- Displaying the Discount Amount -->
+            @Html.DisplayFor(model => model.CalculatedDiscount)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysSinceCodeGiven)
+        </dt>
+        <dd>
+            <!-- Displaying the Days since the Discount -->
+            @Html.DisplayFor(model => model.DaysSinceCodeGiven.Days)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.AutomaticValidation)
+        </dt>
+            
+        <dd>
+            <!-- Wheather or not the Validation set -->
+            @Html.DisplayFor(model => model.AutomaticValidation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminReviewed)
+        </dt>
+
+        <dd>
+            <!-- Whether or not Admint reveiwed -->
+            @Html.DisplayFor(model => model.AdminReviewed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayReview)
+        </dt>
+
+        <dd>
+            <!-- Checkbox to set the Review display -->
+            @Html.DisplayFor(model => model.DisplayReview)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            <!-- Displaying the Product Rating -->
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            <!-- Displaying the Email Address -->
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewSubject)
+        </dt>
+
+        <dd>
+            <!-- Displaying the Review Subject -->
+            @Html.DisplayFor(model => model.ReviewSubject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewBody)
+        </dt>
+
+        <dd>
+            <!-- Displaying the Review Body -->
+            @Html.DisplayFor(model => model.ReviewBody)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WouldBuyAgain)
+        </dt>
+
+        <dd>
+            <!-- Displaying whether or not the customer would buy the product again -->
+            @Html.DisplayFor(model => model.WouldBuyAgain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecToFriend)
+        </dt>
+
+        <dd>
+            <!-- Displaying whether or not the customer would reccomend the product to a friend -->
+            @Html.DisplayFor(model => model.RecToFriend)
+        </dd>
+        <hr />
+        <hr />
+    </dl>
+</div>
+
