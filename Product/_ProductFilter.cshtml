@@ -1,0 +1,17 @@
+﻿@model Blue_Ribbon.ViewModels.SortOptionsViewModel
+
+<div class="row text-center">
+    @using (Html.BeginForm("Index", "Product"))
+    {
+        <div class="search">
+            Filter Results:  @Html.DropDownList("webSort", Model.WebsitesSelectItem)
+            @Html.DropDownList("catSort", Model.CategoriesSelectItem)
+            @Html.DropDownList("sortOrder", Model.SortList)
+            @Html.TextBox("productsearch", ViewBag.CurrentFilter as string, new { @class = "", placeholder = "Filter by keywords" })
+            <input type="submit" value="Search" class="btn btn-default" />
+            @Html.ActionLink("Reset", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+        </div>
+
+        <div class="productButton"></div>
+    }
+</div>

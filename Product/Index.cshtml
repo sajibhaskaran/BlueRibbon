@@ -1,0 +1,235 @@
+﻿@model PagedList.IPagedList<Blue_Ribbon.ViewModels.ProductSortViewModel>
+@using PagedList.Mvc;
+
+@section styleSheets
+{
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+}
+
+@{
+    ViewBag.Title = "Find a Deal!";
+    //var sortList = new List<SelectListItem>
+    //{
+    //    new SelectListItem {Text = "Price - Lowest", Value = "priceAsc" },
+    //    new SelectListItem {Text = "Price - Highest", Value = "priceDesc" },
+    //    new SelectListItem {Text = "Newest First", Value = "ageAsc" },
+    //    new SelectListItem {Text = "Oldest First", Value = "ageDesc" },
+    //    new SelectListItem {Text = "Category - A to Z", Value = "categoryAsc" },
+    //    new SelectListItem {Text = "Category - Z to A", Value = "categoryDesc" }
+    //};
+
+
+    //var websites = new List<SelectListItem>
+    //{
+    //    new SelectListItem {Text = "All Websites", Value = "All" },
+    //    new SelectListItem {Text = "Amazon", Value = "Amazon" },
+    //    new SelectListItem {Text = "BestBuy", Value = "BestBuy" },
+    //    new SelectListItem {Text = "eBay", Value = "eBay" },
+    //    new SelectListItem {Text = "Etsy", Value = "Etsy" },
+    //    new SelectListItem {Text = "FlipKart", Value = "FlipKart" },
+    //    new SelectListItem {Text = "Walmart", Value = "Walmart" }
+    //};
+}
+
+<div class="row">
+    <div class="text-center">
+        <!-- Please implement your own CacheBuster for accurate impression tracking  -->
+        <a target="_blank" href="http://linksynergy.walmart.com/fs-bin/click?id=o25vKN4AMX4&offerid=223073.10005948&type=4&subid=0&tmpid=1081&RD_PARM1=https%253A%252F%252Fwww.walmart.com%252Fcp%252F4038581%253Faffs%253Dp%2526wid%253D5821283ce4b0bf9883d0a359">
+            <img style="max-width: 100%;" alt="Wal-Mart.com USA, LLC" src="http://merchant.linksynergy.com/fs/banners/2149/2149_10005948.jpg" />
+        </a>
+    </div>
+    @*<IMG border="0" width="1" height="1" src="//beacon.affil.walmart.com/beacon.gif?et=imgbanner&affs=p&src=http%3A%2F%2Flinksynergy.walmart.com%2Ffs-bin%2Fclick%3Fid%3Do25vKN4AMX4%26offerid%3D223073.10005948%26type%3D4%26subid%3D0%26tmpid%3D1081%26RD_PARM1%3Dhttps%25253A%25252F%25252Fwww.walmart.com%25252Fcp%25252F4038581%25253Faffs%25253Dp%252526wid%25253D5821283ce4b0bf9883d0a359">*@
+</div>
+<div class="row product-top text-center">
+    <div class="col-sm-12 text-center xsCenter">
+        <h2>Find A Deal!</h2>
+    </div>
+</div>
+@*<div class="row">
+        @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+        {
+            <div class="col-xs-12 col-sm-6 col-lg-6 productsort xsCenter mdUpRight">
+                Sort: @Html.DropDownList("webSort", websites)
+                @Html.DropDownList("sortOrder", sortList)
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-6 productsearch xsCenter mdUpLeft">
+                <input type="submit" value="Search" class="btn btn-primary" />
+                @Html.ActionLink("Reset", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+                @Html.TextBox("productsearch", ViewBag.CurrentFilter as string)
+            </div>
+        }
+    </div>*@
+@{Html.RenderAction("_ProductFilter", "Product");}
+<hr />
+<br />
+
+@if (Model.Count == 0)
+{
+    <div class="col-md-12 text-center">
+        <h3>No Results Found</h3>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="grow productitem col-lg-2 col-md-3 col-sm-4 col-xs-6">
+        <div class="panel panel-default">
+            <div class="panel-body productbox">
+                <a data-target="#@item.ASIN" role="button" data-toggle="modal">
+                    <div class="productimagebox">
+                        <img src=@item.ImageUrl />
+                    </div>
+                    @*<hr class="category-top" />*@
+                    @*<div class="category">
+                            @item.Category
+                        </div>*@
+                    <hr class="category-bottom" />
+                    <div class="itemtitle">
+                        <h6>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </h6>
+                    </div>
+                    @if (item.displayMSRP == true)
+                    {
+                        <h1 class="specialprice ">
+                            <del>
+                                @if (item.displayMSRP == true)
+                                {@item.displayAsCurrency(item.OriginalPriceNumerical)}
+                            </del>
+                        </h1>
+                        <p class="productdiscount">
+                            @(Math.Ceiling(Math.Abs(item.CalculatedDiscount / item.OriginalPriceNumerical) * 100))% off
+                        </p>
+                    }
+                    else
+                    {
+                        <div style="visibility: hidden">
+                            <h1 class="specialprice ">
+                                <del>@item.displayAsCurrency(item.OriginalPriceNumerical)</del>
+                            </h1>
+                            <p class="productdiscount">
+                                @(Math.Ceiling(Math.Abs(item.CalculatedDiscount / item.OriginalPriceNumerical) * 100))%
+                            </p>
+                        </div>
+                    }
+                    <h2>
+                        @item.displayAsCurrency(double.Parse(item.RetailPrice))
+                    </h2>
+                </a>
+                <div class="modal fade" id="@item.ASIN">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" data-dismiss="modal">&times;</button>
+                                <h4>@item.Name </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12 ">
+
+                                        <img class="modal-img" src=@item.ImageUrl />
+                                        @if (item.requiredHTML != "")
+                                        {
+                                            @Html.Raw(item.requiredHTML)
+                                        }
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <p>
+                                            <h1 class="specialprice">
+                                                Retail Price
+                                                @item.displayAsCurrency(double.Parse(item.RetailPrice))
+                                            </h1>
+                                            <hr />
+                                        </p>
+                                        @if (User.Identity.IsAuthenticated == false)
+                                        {
+                                            <div>
+                                                <p>
+                                                    To request this deal, please login:
+                                                </p>
+                                                <p>
+                                                    @Html.ActionLink("Login Page", "Login", "Account", null, htmlAttributes: new { @class = "btn btn-warning" })
+                                                </p>
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="reviewform" id="@String.Concat(@item.ASIN, "Form")">
+                                                @using (Html.BeginForm("SubmitRequest", "Deals", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" id="@String.Concat(@item.ASIN, "userid")" class="start" value="@User.Identity.Name" />
+                                                    <input type="hidden" id="@String.Concat(@item.ASIN, "dealid")" value="@item.DealID" />
+
+                                                    {
+                                                        <a href="@item.GetVendorsUrl" target="_blank" class="btn btn-primary" style="align-content:center">Get Deal Now! <span class="glyphicon glyphicon-new-window"></span></a>
+                                                       
+
+                                                    }
+
+                                                }
+                                            </div>
+                                            <div class="formmessage" id="@String.Concat(@item.ASIN, "FormMessage")">
+                                                <hr />
+                                                <div class="alert alert-success" role="alert" id="@String.Concat(@item.ASIN, "Alert")"></div>
+                                            </div>
+                                        }
+                                        <hr style="clear:both" />
+                                       
+                                        
+                                        <div>
+                                            @*Getting a partial view of the product reviews by passing ASIN of selected product.
+                                                Displays on the Modal*@
+
+
+
+                                            @Html.Action("PartialView", "AllReviews", new { id = @item.ASIN })
+                                           
+                                        </div>
+
+                                        <h1 class="specialprice">Description</h1>
+                                        <p class="review-text">
+                                            @item.Description
+                                        </p>
+                                        <p>
+                                            @item.VendorsPurchaseInstructions
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                @*Customer asked to keep link of modal to prevent too many visitors to product page resulting in poor conversion rate.*@
+                                @*<a href="@item.GetVendorsUrl" target="_blank" class="btn btn-default btn-view-amazon pull-right" style="align-content:center">Get Deal Now! <span class="glyphicon glyphicon-new-window"></span></a>*@
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <span class="btn btn-primary" style="align-content:center; white-space:normal;">
+        @Html.ActionLink("Get Coupon Code", "Create", "ReviewLog", null, new { @style = "color : white; text-decoration: none;" })
+        <span class="glyphicon glyphicon-new-window"></span>
+    </span>
+
+    -->
+
+}
+
+<div class="text-center pagedList col-xs-12">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter }))
+</div>
+
+@section Scripts{
+
+    @*Social Buttons on this page*@
+    <script src="@Url.Content("~/Scripts/SocialInit.js")"></script>
+
+    @*Etsy affiliate link converter*@
+    <script src="https://www.dwin2.com/pub.309967.min.js"></script>
+}
