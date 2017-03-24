@@ -5,8 +5,9 @@
 
 
 
-
-@{var avRating = Model.Select(p => p.Rating).Average(); }
+@*Getting the average customer reviews*@
+@{var avRating = Model.Select(p => p.Rating).Average();
+  var tempRating = (int)avRating; }
 
 <div class="row container-fluid">
 
@@ -21,65 +22,81 @@
         <p>
             <h1 class="specialprice">
                 Retail Price
-                
+
                 @Model.First().RetailPrice.ToString("C")
+            </h1>
+            <h4>
+                Average:
+                
+
                 @for (int i = 0; i < (int)@avRating; i++)
                 {
                     <i class="fa fa-star rating-star" aria-hidden="true"></i>
-                    
-                } 
+
+                }
                 @if (avRating % 1 != 0)
                 {
                     <i class="fa fa-star-half-o rating-star" aria-hidden="true"></i>
-                  
+
                     avRating = avRating + 1;
                 }
 
                 @for (int i = (int)avRating; i < 5; i++)
                 {
                     <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
-                } 
-                
-                
-            </h1>
-            <hr />
-
-            <h1 class="specialprice">Description</h1>
-        </p>
-        @Model.First().Description
-
-        <hr style="clear:both" />
-        <br />
-
-
-
-
-
-
-        <h1 class="specialprice">Customer Reviews</h1>
-
-        @*Going through the model and listing the reviews associated with this product *@
-
-
-        @foreach (var item in Model)
-        {
-            <h2>
-                @{int x = (int)item.Rating;}
-                 
-                @for (int i = 0; i < x; i++)
-                {
-                    <i class="fa fa-star rating-star" aria-hidden="true"></i>
                 }
-                @for (int i = x; i < 5; i++)
-                {
-                    <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
-                } 
                 &nbsp;
-                <bold>@item.ReviewSubject</bold>              
-                
-               
+                @Model.Count() Customer Reviews
 
-            </h2>
+            </h4>
+
+
+                <h6>@tempRating.ToString().5 out of 5 Stars</h6>
+            
+
+
+
+
+
+
+
+    <hr />
+
+    <h1 class="specialprice">Description</h1>
+    </p>
+    @Model.First().Description
+
+    <hr style="clear:both" />
+    <br />
+
+
+
+
+
+    <h1 class="specialprice">Customer Reviews</h1>
+
+    @*Going through the model and listing the reviews associated with this product *@
+
+
+    @foreach (var item in Model)
+    {
+        <h2>
+            @{int x = (int)item.Rating;}
+
+            @for (int i = 0; i < x; i++)
+                {
+                <i class="fa fa-star rating-star" aria-hidden="true"></i>
+            }
+            @for (int i = x; i < 5; i++)
+                {
+                <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
+            }
+            &nbsp;
+            <bold>@item.ReviewSubject</bold>
+
+
+
+        </h2>
 
             <p class="review-text">
 
@@ -87,13 +104,13 @@
             </p>
             <p>&nbsp;</p>
             <hr />
-        }
-        @if (Model.Count() == 0)
-        {
-            <p>
-                No Reviews yet for this product!
-            </p>
-        }
-
-    </div>
+                }
+    @if (Model.Count() == 0)
+    {
+        <p>
+            No Reviews yet for this product!
+        </p>
+    }
+       
+</div>
 </div>

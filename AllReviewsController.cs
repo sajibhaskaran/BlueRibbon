@@ -11,11 +11,8 @@ namespace Blue_Ribbon.Controllers
 {
     public class AllReviewsController : Controller
     {
-        internal static object Review;
         private BRContext db = new BRContext();
-
-       
-
+             
         // GET: AllReviews
         public ActionResult Index(string id)
         {
@@ -30,21 +27,16 @@ namespace Blue_Ribbon.Controllers
             List<Deal> Deals = db.Deal.ToList();
 
             List<ReviewLogViewModel> LogsViewModel = new List<ReviewLogViewModel>();
-
+           
             for (var i = 0; i < Logs.Count; i++)
             {
                 var vm = new ReviewLogViewModel(Deals.Where(a => a.ASIN == id).FirstOrDefault(), Logs[i]);
                 LogsViewModel.Add(vm);
+                
             }
+            
             return View(LogsViewModel);
-/*
-           List<ReviewLog> Reviews = (from log in db.ReviewLog
-                                       where log.ASIN.Equals(id) && log.CustomerReviewed == true
-                                       select log).ToList();
 
-
-            return View(Reviews);
-*/
         }
 
         public new ActionResult PartialView(string id)
@@ -52,13 +44,16 @@ namespace Blue_Ribbon.Controllers
             // Making a list of the reviews associated with the product
             // Pulling all with the given ID
 
-
+            
             List<ReviewLog> Reviews = (from log in db.ReviewLog
                                        where log.ASIN.Equals(id) && log.CustomerReviewed == true
                                        select log).ToList();
 
             // Returning a partial view to show in the product Model
-            Session["Con"] = Reviews.Count;
+            
+            
+
+
             return PartialView(Reviews);
 
         }

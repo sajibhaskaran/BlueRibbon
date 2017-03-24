@@ -87,7 +87,8 @@
         </td>
         <td>
             <!-- Displaying the body of the review-->
-            @Html.DisplayFor(modelItem => item.ReviewBody)
+            @Html.Raw((item.ReviewBody.Length > 50 ? item.ReviewBody.Substring(0, 50) : item.ReviewBody))
+            @*@Html.DisplayFor(modelItem => item.ReviewBody)*@
         </td>
         <td>
             <!-- Displaying whether or not the customer would buy the product again -->

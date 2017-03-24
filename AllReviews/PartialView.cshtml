@@ -1,6 +1,53 @@
 ﻿@model IEnumerable<Blue_Ribbon.Models.ReviewLog>
 
+@{
+    var avrRating = 0;
+    var tRating = 0;
+    }
 
+@*Getting the average Rating*@
+
+
+<h1 class="specialprice">Customer Reviews</h1>
+
+@{ if (Model.Count() > 0)
+    {
+        avrRating = (int)Model.Select(a => a.Rating).Average();
+        tRating = avrRating;
+
+
+<h5>
+    Average:
+
+    @*Creating stars using the average Rating*@
+    @for (int i = 0; i < (int)@avrRating; i++)
+    {
+        <i class="fa fa-star rating-star" aria-hidden="true"></i>
+
+    }
+    @if (avrRating % 1 != 0)
+    {
+        <i class="fa fa-star-half-o rating-star" aria-hidden="true"></i>
+
+        avrRating = avrRating + 1;
+    }
+
+    @for (int i = (int)avrRating; i < 5; i++)
+    {
+        <i class="fa fa-star-o rating-star" aria-hidden="true"></i>
+    }
+    &nbsp;
+    @Model.Count() Customer Reviews
+</h5>
+<h6>@tRating.ToString().5 out of 5 Stars</h6>
+        }
+
+    }
+
+
+<hr />
+
+ 
 
 
 @*If the Model count is not 0, listing the fist 3 reviews then a link for viewing all the reviews*@
@@ -31,6 +78,8 @@
             @item.ReviewBody
         </p>
     }
+
+     @*Link to the Product page with all the reviews*@
     <button class="btn btn-primary" style="align-content:center; white-space:normal;">
         @Html.ActionLink("More Reviews ", "Index", "AllReviews", new { id = Model.First().ASIN },
                     new { target = "_blank", @style = "color:white; text-decoration:none;" })
@@ -44,6 +93,9 @@
             No Reviews yet for this product!
         </p>
         }
+
+<hr />
+
 
 
 
