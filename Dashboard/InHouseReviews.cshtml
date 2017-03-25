@@ -1,0 +1,69 @@
+﻿@model List<Blue_Ribbon.ViewModels.ReviewLogViewModel>
+@* This section-The Partial View for the InHouseReviews. Should display local reviews in tab 5 of Customer Dashboard*@
+
+<div>
+    @foreach (var item in Model)
+            {
+            <!-- Displays reviewed items -->
+        <div class="row dashOpenItem">
+            <!-- Column Left: ImageURL + ASIN/ID -->
+            <div class="col-md-2 col-xs-3 text-center">
+                
+                <img src=@item.ImageUrl class="dashboardRowImage" /><br />
+                Item# <b>@item.ASIN</b>
+                <br />
+
+            </div>
+            <!-- Column Center: Item Name, DateCodeGiven, ReviewDate -->
+            <!-- TODO: May want to display Discount Code later -->
+            <div class="col-md-6 col-xs-5">
+                <div class="row text-center">
+                    <br />
+                    <b>@item.ProductName</b> <br />
+                </div>
+                <hr />
+                <div class="row">
+                    You received deal on: @item.SelectedDate
+                </div>
+                <div class="row">
+                    
+                    Your reviewed deal on: @item.DateReviewed
+                </div>
+            </div>
+            <div class="col-md-1 col-xs-1">
+
+            </div>
+            <!-- Column Right: (Link to purchase item), Link to view Review -->
+            <div class="col-md-3 col-xs-2">
+                <!-- Button to view review, goes to AllReviews Index page -->
+                <div class="row">
+                    <br />
+                    <p>
+                        <span class="btn btn-primary" style="align-content:center; white-space:normal;">
+
+                            @Html.ActionLink("Read Your Review Here", "Index", "AllReviews", new { id = item.ASIN }, new { @style = "color : white; text-decoration: none;" })
+                            <span class="glyphicon glyphicon-new-window"></span>
+                        </span>
+                    </p>         
+                    
+                </div>
+                <!-- Button to purchase item again, to vendors page -->
+                <div class="row">
+                    <p>
+
+                        <a href="@item.GetVendorsURL" target="_blank"
+                           class="btn btn-success"
+                           style="align-content:center; white-space:normal;">
+                            Purchase item here!
+                            <span class="glyphicon glyphicon-new-window"></span>
+                        </a>
+
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+        <hr />
+    }
+</div>
