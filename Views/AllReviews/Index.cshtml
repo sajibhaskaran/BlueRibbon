@@ -7,7 +7,9 @@
 
 @*Getting the average customer reviews*@
 @{var avRating = Model.Select(p => p.Rating).Average();
-  var tempRating = (int)avRating; }
+    string tempRating = avRating.ToString();
+}
+ 
 
 <div class="row container-fluid">
 
@@ -39,6 +41,7 @@
                     <i class="fa fa-star-half-o rating-star" aria-hidden="true"></i>
 
                     avRating = avRating + 1;
+                    
                 }
 
                 @for (int i = (int)avRating; i < 5; i++)
@@ -51,7 +54,7 @@
             </h4>
 
 
-                <h6>@tempRating.ToString().5 out of 5 Stars</h6>
+                <h6>@tempRating out of 5 Stars</h6>
             
 
 
